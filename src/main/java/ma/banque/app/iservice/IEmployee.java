@@ -5,4 +5,7 @@ import ma.banque.app.imetier.IMetier;
 
 public interface IEmployee extends IMetier<Employee> {
 
+          void  DeleteByID(int id);
+
+          Employee findById(int id);
 }

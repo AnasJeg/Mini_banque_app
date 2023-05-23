@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/banque/operations")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class OperationController {
     private OperationService operationService;
 

@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/banque/employees")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class EmployeeController {
     private EmployeeService employeeService;
 
@@ -30,6 +31,18 @@ public class EmployeeController {
         return employeeService.delete(employee);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public void deleteById(@PathVariable int id) {
+         employeeService.DeleteByID(id);
+    }
+    @PutMapping("/update/{id}")
+    public Employee updateCity(@PathVariable int id, @RequestBody Employee employee) {
+        Employee existingEmploye = employeeService.findById(id);
+        if (existingEmploye != null) {
+            employeeService.Update(employee);
+        }
+        return null;
+    }
     @GetMapping(value = "/read")
     public List<Employee> findAll() {
         return employeeService.findAll();

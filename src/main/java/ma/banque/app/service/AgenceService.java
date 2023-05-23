@@ -39,4 +39,9 @@ public class AgenceService implements IAgence {
     public List<Agence> findAll() {
         return this.agenceRepository.findAll();
     }
+
+    @Override
+    public void DeleteByID(int id) {
+        this.agenceRepository.delete(this.agenceRepository.findById(id));
+    }
 }

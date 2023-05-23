@@ -39,4 +39,14 @@ public class EmployeeService implements IEmployee {
     public List<Employee> findAll() {
         return this.employeeRepository.findAll();
     }
+
+    @Override
+    public void DeleteByID(int id) {
+        this.employeeRepository.delete(this.employeeRepository.findById(id));
+    }
+
+    @Override
+    public Employee findById(int id) {
+        return employeeRepository.findById(id);
+    }
 }

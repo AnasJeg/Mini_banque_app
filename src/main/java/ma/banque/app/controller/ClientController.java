@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/banque/clients")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class ClientController {
     private ClientService clientService;
 

@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/banque/apis")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class BanqueController {
     private BanqueService banqueService;
 
@@ -54,9 +55,9 @@ public class BanqueController {
         return banqueService.getOperationsByClient(client);
     }
 
-    @PostMapping(value = "/viremantBetweenClientByNumeroCompte")
-    public boolean viremantBetweenClientByNumeroCompte(@RequestBody Compte compteEnvoie, @RequestBody Compte compteRecoit, @PathParam(value = "montant") double montant) {
-        return banqueService.viremantBetweenClientByNumeroCompte(compteEnvoie, compteRecoit, montant);
+    @PostMapping(value = "/viremantBetweenClientByNumeroCompte/{compteEnvoie}/{compteRecoit}")
+    public boolean viremantBetweenClientByNumeroCompte(@PathVariable String compteEnvoie,@PathVariable String compteRecoit, @PathParam(value = "montant") double montant) {
+        return banqueService.viremantBetweenClientByNumeroCompte2(compteEnvoie, compteRecoit, montant);
     }
 
     @PostMapping(value = "/viremantBetweenClientByCin")

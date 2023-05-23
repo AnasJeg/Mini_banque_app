@@ -2,6 +2,7 @@ package ma.banque.app.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import ma.banque.app.entity.Client;
 import ma.banque.app.iservice.ICompte;
 import ma.banque.app.entity.Compte;
 import ma.banque.app.repository.CompteRepository;
@@ -44,4 +45,17 @@ public class CompteService implements ICompte {
     public Compte findByNumeroCompte(String numeroCompte) {
         return this.compteRepository.findByNumeroCompte(numeroCompte);
     }
+
+    @Override
+    public void DeleteByID(int id) {
+        this.compteRepository.delete(this.compteRepository.findById(id));
+    }
+
+    @Override
+    public Compte findByClient_Id(int id) {
+        return this.compteRepository.findByClient_Id(id);
+    }
+
+
+
 }

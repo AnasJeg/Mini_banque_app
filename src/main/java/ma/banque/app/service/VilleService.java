@@ -39,4 +39,9 @@ public class VilleService implements IVille {
     public List<Ville> findAll() {
         return this.villeRepository.findAll();
     }
+
+    @Override
+    public void DeleteByID(int id) {
+        this.villeRepository.delete(this.villeRepository.findById(id));
+    }
 }

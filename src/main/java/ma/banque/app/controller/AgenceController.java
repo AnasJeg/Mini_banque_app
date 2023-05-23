@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/banque/agences")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class AgenceController {
     private AgenceService agenceService;
 
@@ -30,6 +31,10 @@ public class AgenceController {
         return agenceService.delete(agence);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public void deleteById(@PathVariable int id) {
+        agenceService.DeleteByID(id);
+    }
     @GetMapping(value = "/read")
     public List<Agence> findAll() {
         return agenceService.findAll();

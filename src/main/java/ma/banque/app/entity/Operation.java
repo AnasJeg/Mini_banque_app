@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "Operations")
@@ -19,7 +20,8 @@ public class Operation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
-    @Column(nullable = false, length = 10, unique = true)
+
+    @Column(nullable = false, length = 10000, unique = true)
     protected String code;
 
     @Column(nullable = false)
@@ -29,6 +31,11 @@ public class Operation {
     protected Date date;
 
     @ManyToOne
-    @JsonIgnore
     protected Compte compte;
+
+    @PrePersist
+    protected void onCreate() {
+        this.code = UUID.randomUUID().toString();
+    }
+
 }

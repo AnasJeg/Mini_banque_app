@@ -3,6 +3,7 @@ package ma.banque.app.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
+import ma.banque.app.entity.Client;
 import ma.banque.app.entity.Compte;
 import ma.banque.app.service.CompteService;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/banque/comptes")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class CompteController {
     private CompteService compteService;
 
@@ -39,5 +41,10 @@ public class CompteController {
     @GetMapping
     public Compte findByNumeroCompte(@PathParam(value = "numeroCompte") String numeroCompte) {
         return compteService.findByNumeroCompte(numeroCompte);
+    }
+
+    @GetMapping("/client")
+    public Compte findByClient(@PathParam(value = "id") String id){
+        return compteService.findByClient_Id(Integer.parseInt(id));
     }
 }

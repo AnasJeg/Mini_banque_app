@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/banque/villes")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class VilleController {
     private VilleService villeService;
 
@@ -33,5 +34,10 @@ public class VilleController {
     @GetMapping(value = "/read")
     public List<Ville> findAll() {
         return villeService.findAll();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteById(@PathVariable int id) {
+        villeService.DeleteByID(id);
     }
 }

@@ -26,11 +26,9 @@ public class Compte {
     protected double solde;
 
     @ManyToOne
-    @JsonIgnore
     protected Agence agence;
 
     @ManyToOne
-    @JsonIgnore
     protected Client client;
 
     @OneToMany(mappedBy = "compte", fetch = FetchType.EAGER)

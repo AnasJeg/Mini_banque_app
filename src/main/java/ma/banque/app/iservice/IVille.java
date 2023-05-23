@@ -5,4 +5,5 @@ import ma.banque.app.imetier.IMetier;
 
 public interface IVille extends IMetier<Ville> {
 
+    void DeleteByID(int id);
 }

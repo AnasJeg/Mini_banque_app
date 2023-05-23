@@ -29,6 +29,5 @@ public class Agence {
     private List<Compte> comptes;
 
     @ManyToOne
-    @JsonIgnore
     private Ville ville;
 }

@@ -55,7 +55,7 @@ public class BanqueService implements IBanque {
             if (!Objects.isNull(compte)) {
                 compte.setSolde(compte.getSolde() + montant);
                 this.operationService.create(Depot.builder()
-                        .code("")
+                      //  .code("")
                         .date(new Date())
                         .montant(montant)
                         .compte(compte)
@@ -75,7 +75,7 @@ public class BanqueService implements IBanque {
             if (!Objects.isNull(compte)) {
                 compte.setSolde(compte.getSolde() + montant);
                 this.operationService.create(Depot.builder()
-                        .code("")
+                    //    .code("")
                         .date(new Date())
                         .montant(montant)
                         .compte(compte)
@@ -95,7 +95,7 @@ public class BanqueService implements IBanque {
                 if (compte.getSolde() >= montant) {
                     compte.setSolde(compte.getSolde() - montant);
                     this.operationService.create(Retrait.builder()
-                            .code("")
+                       //     .code("")
                             .date(new Date())
                             .montant(montant)
                             .compte(compte)
@@ -116,8 +116,9 @@ public class BanqueService implements IBanque {
             if (!Objects.isNull(compte)) {
                 if (compte.getSolde() >= montant) {
                     compte.setSolde(compte.getSolde() - montant);
-                    this.operationService.create(Retrait.builder()
-                            .code("")
+                    this.operationService.create(
+                            Retrait.builder()
+                          //  .code("")
                             .date(new Date())
                             .montant(montant)
                             .compte(compte)
@@ -135,6 +136,18 @@ public class BanqueService implements IBanque {
         if (!Objects.isNull(compteEnvoie) && !Objects.isNull(compteRecoit)) {
             this.retraitByNumeroCompte(compteEnvoie, montant);
             this.depotByNumeroCompte(compteRecoit, montant);
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean viremantBetweenClientByNumeroCompte2(String compteEnvoie, String compteRecoit, double montant) {
+       Compte compteE = compteService.findByNumeroCompte(compteEnvoie);
+       Compte compteR = compteService.findByNumeroCompte(compteRecoit);
+        if (!Objects.isNull(compteE) && !Objects.isNull(compteR)) {
+            this.retraitByNumeroCompte(compteE, montant);
+            this.depotByNumeroCompte(compteR, montant);
             return true;
         }
         return false;
