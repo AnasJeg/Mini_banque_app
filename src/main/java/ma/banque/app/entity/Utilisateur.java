@@ -1,10 +1,14 @@
 package ma.banque.app.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
+import ma.banque.app.token.Token;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
+
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -14,7 +18,8 @@ import java.util.List;
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
 @EqualsAndHashCode
-public class Utilisateur {
+@Builder
+public class Utilisateur implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -31,9 +36,44 @@ public class Utilisateur {
     @Column(nullable = false, length = 20)
     private String nom;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "utilisateurs_roles", joinColumns = @JoinColumn(name = "utilisateur_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @JsonIgnore
-    private List<Role> roles = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Token> tokens;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return role.getAuthorities();
+    }
+
+    @Override
+    public String getPassword() {
+        return motDePasse;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
