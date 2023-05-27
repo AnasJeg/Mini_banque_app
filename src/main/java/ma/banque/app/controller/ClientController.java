@@ -5,6 +5,7 @@ import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import ma.banque.app.entity.Client;
 import ma.banque.app.service.ClientService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +18,11 @@ import java.util.List;
 public class ClientController {
     private ClientService clientService;
 
+    private final PasswordEncoder passwordEncoder;
+
     @PostMapping(value = "/create")
     public Client create(@RequestBody Client client) {
+        client.setMotDePasse(passwordEncoder.encode(client.getMotDePasse()));
         return clientService.create(client);
     }
 

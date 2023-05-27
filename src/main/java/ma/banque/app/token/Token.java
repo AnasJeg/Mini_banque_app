@@ -6,13 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.banque.app.entity.Utilisateur;
+import ma.banque.app.entity.Personne;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 public class Token {
     @Id
     @GeneratedValue
@@ -29,6 +29,6 @@ public class Token {
     public boolean expired;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "utilisateur_id")
-    public Utilisateur utilisateur;
+    @JoinColumn(name = "personne_id")
+    public Personne personne;
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.*;
+import ma.banque.app.token.Token;
 
 import java.util.Date;
 import java.util.List;
@@ -21,9 +22,9 @@ public class Client extends Personne {
     @JsonIgnore
     private List<Compte> compte;
 
-    @Builder
-    public Client(Integer id, String cin, String nom, String prenom, String adresse, String email, String telephone, Date dateNaissance, List<Compte> compte) {
-        super(id, cin, nom, prenom, adresse, email, telephone, dateNaissance);
+
+    public Client(Integer id, String cin, String nom, String prenom, String adresse, String email, String telephone, Date dateNaissance, String motDePasse, Role role, List<Token> tokens, List<Compte> compte) {
+        super(id, cin, nom, prenom, adresse, email, telephone, dateNaissance,motDePasse,role, tokens );
         this.compte = compte;
     }
 }

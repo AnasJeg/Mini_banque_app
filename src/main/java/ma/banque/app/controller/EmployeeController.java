@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import ma.banque.app.entity.Employee;
 import ma.banque.app.service.EmployeeService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +17,11 @@ import java.util.List;
 public class EmployeeController {
     private EmployeeService employeeService;
 
+    private final PasswordEncoder passwordEncoder;
+
     @PostMapping(value = "/create")
     public Employee create(@RequestBody Employee employee) {
+        employee.setMotDePasse(passwordEncoder.encode(employee.getMotDePasse()));
         return employeeService.create(employee);
     }
 

@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 import ma.banque.app.authentification.AuthRequest;
 import ma.banque.app.authentification.AuthResponse;
 import ma.banque.app.authentification.RegisterRequest;
-import ma.banque.app.entity.Utilisateur;
+import ma.banque.app.entity.Personne;
+import ma.banque.app.repository.PersonneRepository;
 import ma.banque.app.repository.TokenRepository;
-import ma.banque.app.repository.UtilisateurRepository;
 import ma.banque.app.security.JwtService;
 import ma.banque.app.token.Token;
 import ma.banque.app.token.TokenType;
@@ -24,7 +24,7 @@ import java.io.IOException;
 @Service
 @RequiredArgsConstructor
 public class AuthentificationService {
-    private final UtilisateurRepository repository;
+    private final PersonneRepository repository;
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -32,16 +32,20 @@ public class AuthentificationService {
 
 
     public AuthResponse register(RegisterRequest request) {
-        var utilisateur = Utilisateur.builder()
+        var personne = Personne.builder()
                 .prenom(request.getPrenom())
                 .nom(request.getNom())
+                .cin(request.getCin())
                 .email(request.getEmail())
                 .motDePasse(passwordEncoder.encode(request.getMotDePasse()))
+                .adresse(request.getAdresse())
+                .telephone(request.getTelephone())
+                .dateNaissance(request.getDateNaissance())
                 .role(request.getRole())
                 .build();
-        var savedUser = repository.save(utilisateur);
-        var jwtToken = jwtService.generateToken(utilisateur);
-        var refreshToken = jwtService.generateRefreshToken(utilisateur);
+        var savedUser = repository.save(personne);
+        var jwtToken = jwtService.generateToken(personne);
+        var refreshToken = jwtService.generateRefreshToken(personne);
         saveUserToken(savedUser, jwtToken);
         return AuthResponse.builder()
                 .accessToken(jwtToken)
@@ -70,9 +74,9 @@ public class AuthentificationService {
                 .build();
     }
 
-    private void saveUserToken(Utilisateur user, String jwtToken) {
+    private void saveUserToken(Personne personne, String jwtToken) {
         var token = Token.builder()
-                .utilisateur(user)
+                .personne(personne)
                 .token(jwtToken)
                 .tokenType(TokenType.BEARER)
                 .expired(false)
@@ -81,8 +85,8 @@ public class AuthentificationService {
         tokenRepository.save(token);
     }
 
-    private void revokeAllUserTokens(Utilisateur user) {
-        var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
+    private void revokeAllUserTokens(Personne personne) {
+        var validUserTokens = tokenRepository.findAllValidTokenByUser(personne.getId());
         if (validUserTokens.isEmpty())
             return;
         validUserTokens.forEach(token -> {

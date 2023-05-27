@@ -1,7 +1,7 @@
 package ma.banque.app.security;
 
 import lombok.RequiredArgsConstructor;
-import ma.banque.app.repository.UtilisateurRepository;
+import ma.banque.app.repository.PersonneRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -16,12 +16,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 @Configuration
 @RequiredArgsConstructor
 public class AppConfig {
-    private final UtilisateurRepository utilisateurRepository;
+    private final PersonneRepository personneRepository;
 
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> utilisateurRepository.findByEmail(username)
+        return username -> personneRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
