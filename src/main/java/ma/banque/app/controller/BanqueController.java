@@ -60,8 +60,8 @@ public class BanqueController {
         return banqueService.viremantBetweenClientByNumeroCompte2(compteEnvoie, compteRecoit, montant);
     }
 
-    @PostMapping(value = "/viremantBetweenClientByCin")
-    public boolean viremantBetweenClientByCin(@RequestBody Client clientEnvoie, @RequestBody Client clientRecoit, @PathParam(value = "montant") double montant) {
-        return banqueService.viremantBetweenClientByCin(clientEnvoie, clientRecoit, montant);
+    @PostMapping(value = "/viremantBetweenClientByCin/{clientEnvoie}/{clientRecoit}")
+    public boolean viremantBetweenClientByCin(@PathVariable String clientEnvoie, @PathVariable String clientRecoit, @PathParam(value = "montant") double montant) {
+        return banqueService.viremantBetweenClientByCin2(clientEnvoie, clientRecoit, montant);
     }
 }

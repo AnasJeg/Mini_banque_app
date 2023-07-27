@@ -162,4 +162,16 @@ public class BanqueService implements IBanque {
         }
         return false;
     }
+
+    public boolean viremantBetweenClientByCin2(String clientEnvoie, String clientRecoit, double montant) {
+        Client clientE = clientService.findByCin(clientEnvoie);
+        Client clientR = clientService.findByCin(clientRecoit);
+        if (!Objects.isNull(clientE) && !Objects.isNull(clientR)) {
+            this.retraitByCinClient(clientE, montant);
+            this.depotByCinClient(clientR, montant);
+            System.out.println("cin done");
+            return true;
+        }
+        return false;
+    }
 }

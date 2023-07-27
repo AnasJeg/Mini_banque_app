@@ -41,8 +41,13 @@ public class ClientController {
         return clientService.findAll();
     }
 
-    @GetMapping
+    @GetMapping("/by")
     public Client findByCin(@PathParam(value = "cin") String cin) {
         return clientService.findByCin(cin);
+    }
+
+    @GetMapping
+    public Client findByEmail(@PathParam(value = "email") String email) {
+        return this.clientService.findByEmail(email);
     }
 }

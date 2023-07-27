@@ -19,9 +19,9 @@ import java.util.List;
 @AllArgsConstructor
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
+@SuperBuilder
 @EqualsAndHashCode
 @Inheritance(strategy = InheritanceType.JOINED)
-@SuperBuilder
 public class Personne implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

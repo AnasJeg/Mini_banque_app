@@ -2,7 +2,6 @@ package ma.banque.app.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import ma.banque.app.entity.Client;
 import ma.banque.app.iservice.ICompte;
 import ma.banque.app.entity.Compte;
 import ma.banque.app.repository.CompteRepository;

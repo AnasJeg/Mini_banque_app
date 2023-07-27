@@ -39,4 +39,9 @@ public class OperationService implements IOperation {
     public List<Operation> findAll() {
         return this.operationRepository.findAll();
     }
+
+    public List<Operation> findByCompteClientId(int id) {
+        return this.operationRepository.findByCompteClientId(id);
+    }
+
 }

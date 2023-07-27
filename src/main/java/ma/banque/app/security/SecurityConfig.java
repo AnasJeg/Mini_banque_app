@@ -34,12 +34,11 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers(
-                        "/api/auth/**"
+                        "/api/**"
                 )
                 .permitAll()
-
+/*
                 .requestMatchers("/banque/**").hasAnyRole(ADMIN.name(), EMPLOYEE.name(),USER.name())
-
                 .requestMatchers(GET, "/banque/**").hasAnyAuthority(ADMIN_READ.name(), EMPLOYEE_READ.name())
                 .requestMatchers(POST, "/banque/**").hasAnyAuthority(ADMIN_CREATE.name(), EMPLOYEE_CREATE.name())
                 .requestMatchers(PUT, "/banque/**").hasAnyAuthority(ADMIN_UPDATE.name(), EMPLOYEE_UPDATE.name())
@@ -47,6 +46,8 @@ public class SecurityConfig {
 
                 .anyRequest()
                 .authenticated()
+
+ */
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
