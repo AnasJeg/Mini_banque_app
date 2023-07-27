@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import ma.banque.app.entity.Client;
+import ma.banque.app.entity.MessagePublisher;
 import ma.banque.app.service.ClientService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +20,12 @@ public class ClientController {
     private ClientService clientService;
 
     private final PasswordEncoder passwordEncoder;
+    private final MessagePublisher messagePublisher;
 
     @PostMapping(value = "/create")
     public Client create(@RequestBody Client client) {
         client.setMotDePasse(passwordEncoder.encode(client.getMotDePasse()));
+        messagePublisher.publishMessage("client");
         return clientService.create(client);
     }
 
@@ -38,6 +41,7 @@ public class ClientController {
 
     @GetMapping(value = "/read")
     public List<Client> findAll() {
+        messagePublisher.publishMessage("read");
         return clientService.findAll();
     }
 
