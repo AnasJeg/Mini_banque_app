@@ -25,7 +25,7 @@ public class ClientController {
     @PostMapping(value = "/create")
     public Client create(@RequestBody Client client) {
         client.setMotDePasse(passwordEncoder.encode(client.getMotDePasse()));
-        messagePublisher.publishMessage("client");
+        messagePublisher.publishMessage("3244-X-message");
         return clientService.create(client);
     }
 
@@ -41,7 +41,7 @@ public class ClientController {
 
     @GetMapping(value = "/read")
     public List<Client> findAll() {
-        messagePublisher.publishMessage("read");
+        messagePublisher.publishMessage("notify");
         return clientService.findAll();
     }
 
